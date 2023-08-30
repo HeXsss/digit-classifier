@@ -3,13 +3,24 @@ import $ from "jquery"
 import * as tf from "@tensorflow/tfjs"
 
 let model: tf.LayersModel | null = null
-const possibleModels = ["v1", "v2"]
-let selectModel = possibleModels[0]
+const possibleModels = ["v1", "v2", "v3"]
+let selectModel = possibleModels[possibleModels.length - 1]
 
-$("#model").on("input", (event) => {
-  const target = event.target as HTMLInputElement
-  selectModel = target.value
-  loadModel()
+$(async () => {
+  $("#model").empty()
+  for (const model of possibleModels) {
+    const elem = $.parseHTML(
+      `<option value="${model}"${
+        model == selectModel ? "selected" : ""
+      }>${model}</option>`
+    )
+    $("#model").append(elem)
+  }
+  $("#model").on("input", (event) => {
+    const target = event.target as HTMLInputElement
+    selectModel = target.value
+    loadModel()
+  })
 })
 
 const loadModel = async () => {
