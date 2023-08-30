@@ -44,6 +44,22 @@ canvas#preview {
   left: 50%;
   bottom: 2%;
   transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#panel > #model-select {
+  background: #950909;
+  padding: 8px 16px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+#panel > #model-select > span {
+  font-weight: bold;
 }
 
 #panel > button {

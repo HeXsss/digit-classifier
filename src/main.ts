@@ -3,10 +3,20 @@ import $ from "jquery"
 import * as tf from "@tensorflow/tfjs"
 
 let model: tf.LayersModel | null = null
+const possibleModels = ["v1", "v2"]
+let selectModel = possibleModels[0]
+
+$("#model").on("input", (event) => {
+  const target = event.target as HTMLInputElement
+  selectModel = target.value
+  loadModel()
+})
 
 const loadModel = async () => {
+  $("#loading").text(`Loading model ${selectModel}...`)
   $("#loading").fadeIn(200)
-  model = await tf.loadLayersModel("model/model.json")
+  model = await tf.loadLayersModel(`models/${selectModel}/model.json`)
+  getCurrentStroke()
   $("#loading").fadeOut(200)
 }
 
